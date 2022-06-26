@@ -29,3 +29,30 @@ function Speak() {
   ut = new SpeechSynthesisUtterance(sd);
   Api.speak(ut);
 }
+
+function predict() {
+  img = document.getElementById("captured_image");
+  classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(results);
+    document.getElementById("result_emotion_name").innerHTML = results[0].label;
+    prediction1 = results[0].label;
+    Speak();
+    if (results[0].label == "Best") {
+      document.getElementById("emoji1").innerHTML = "👍";
+    } else if (results[0].label == "Sad") {
+      document.getElementById("Amazing").innerHTML = "👌";
+    } else if (results[0].label == "Fingers Crossed") {
+      document.getElementById("emoji1").innerHTML = "🤞";
+    } else if (results[0].label == "Fist") {
+      document.getElementById("emoji1").innerHTML = "👊";
+    } else if (results[0].label == "Victory") {
+      document.getElementById("emoji1").innerHTML = "✌";
+    }
+  }
+}
